@@ -1,4 +1,4 @@
-name: Java Maven Build, PMD, & Publish Artifact
+name: Java Maven Build, PMD, JaCoCo, & Publish Artifact
 
 on:
   push:
@@ -32,18 +32,28 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     
     - name: Run PMD
       run: mvn pmd:pmd
     
+    - name: Run JaCoCo Coverage
+      run: mvn jacoco:prepare-agent test jacoco:report
+
+    - name: Archive JaCoCo Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: JaCoCo Report
+        path: target/site/jacoco
+
     - name: Archive PMD Report
       uses: actions/upload-artifact@v3
       with:
         name: PMD Report
         path: target/pmd-report
-      
+
   publish-job:
     runs-on: ubuntu-latest
     needs: build_test
