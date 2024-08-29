@@ -134,10 +134,9 @@
                 <outputDirectory>${project.build.directory}/site</outputDirectory>
             </configuration>
         </plugin>
-    </plugins>
 
 
-		</plugins>
+</plugins>
 
 	</build>
 
