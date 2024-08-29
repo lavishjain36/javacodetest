@@ -1,4 +1,4 @@
-name: Java Maven Build, PMD, JaCoCo, & Publish Artifact
+name: Java Maven Build, PMD, JaCoCo, & Generate PDF Report
 
 on:
   push:
@@ -36,23 +36,32 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     
-    - name: Run PMD
-      run: mvn pmd:pmd
+    - name: Run Tests with JaCoCo
+      run: mvn test jacoco:report
     
-    - name: Run JaCoCo Coverage
-      run: mvn jacoco:prepare-agent test jacoco:report
-
     - name: Archive JaCoCo Report
       uses: actions/upload-artifact@v3
       with:
         name: JaCoCo Report
         path: target/site/jacoco
 
+    - name: Run PMD
+      run: mvn pmd:pmd
+    
     - name: Archive PMD Report
       uses: actions/upload-artifact@v3
       with:
         name: PMD Report
         path: target/pmd-report
+    
+    - name: Generate PDF Report
+      run: mvn site site:stage asciidoctor:process-asciidoc@pdf
+
+    - name: Archive PDF Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: PDF Report
+        path: target/site/staging/pdf
 
   publish-job:
     runs-on: ubuntu-latest
