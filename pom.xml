@@ -30,11 +30,7 @@
 		</dependency>
 		<!-- end::junit[] -->
 
-		 <dependency>
-	        <groupId>org.apache.maven.doxia</groupId>
-	        <artifactId>doxia-sitetools</artifactId>
-	        <version>1.9.2</version> <!-- Use the latest stable version -->
-                </dependency>
+		
 	</dependencies>
 
 	<build>
