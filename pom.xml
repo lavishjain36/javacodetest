@@ -98,6 +98,28 @@
 			</plugin>
 			<!-- End JaCoCo Plugin -->
 
+			 <!-- Asciidoctor Maven Plugin -->
+		        <plugin>
+		            <groupId>org.asciidoctor</groupId>
+		            <artifactId>asciidoctor-maven-plugin</artifactId>
+		            <version>2.2.1</version>
+		            <executions>
+		                <execution>
+		                    <id>process-asciidoc</id>
+		                    <goals>
+		                        <goal>process-asciidoc</goal>
+		                    </goals>
+		                    <phase>generate-resources</phase>
+		                    <configuration>
+		                        <backend>pdf</backend>
+		                        <sourceDocumentName>index.adoc</sourceDocumentName>
+		                        <outputDirectory>${project.build.directory}/pdf</outputDirectory>
+		                    </configuration>
+		                </execution>
+		            </executions>
+		        </plugin>
+
+
 		</plugins>
 
 	</build>
